@@ -13,7 +13,7 @@ class DAO():
         cursor = cnx.cursor(dictionary = True)
         query= """SELECT c.StateAbb, c.CCode, c.StateNme
                 FROM country c, contiguity cc
-                WHERE (c.CCode=cc.state1no or c.CCode=cc.state2no) and cc.`year` <= %s
+                WHERE (c.CCode=cc.state1no or c.CCode=cc.state2no) and cc.`year` <= %s AND cc.conttype = 1
                 GROUP BY c.StateAbb, c.CCode, c.StateNme
                 """
 

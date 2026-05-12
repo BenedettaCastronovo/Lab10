@@ -26,11 +26,29 @@ class Model:
 
     def grado(self):
         diz = {}
-        for n in self._mappaN:
-            grado = self._grafo.degree(self._mappaN[n])
+        for n in self._grafo.nodes(): #non nella mappa perche potrei avere piu nazioni di quelle nel grafo
+            grado = self._grafo.degree[n]
 
-            diz[self._mappaN[n].StateNme] = grado
+            diz[n.StateNme] = grado
         return diz
 
     def getNumC(self):
         return nx.number_connected_components(self._grafo)
+
+    def getStati(self):
+        return self._grafo.nodes()
+
+    def getCompC(self, source):
+        dfsTree = nx.dfs_tree(self._grafo, source)
+        lista = list(dfsTree.nodes())
+        return lista
+
+        #print("size connessa con dfs_tree", len(dfsTree.nodes()))
+
+        # Strategia 2
+        #dfsPred = nx.dfs_predecessors(self._graph, source)
+        #print("size connessa con dfs_predecessors", len(dfsPred.values()))
+
+        # Strategia 3
+        #conn = nx.node_connected_component(self._graph, source)
+        #print("size connessa con node_connected_component", len(conn))
